@@ -20,7 +20,6 @@ class Modality(Base):
     Class to game modes
     """
     name = models.CharField(max_length=255, blank=False, unique=True)
-    status = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Modality"
@@ -51,13 +50,31 @@ class Athlete(Base):
         return f'{self.first_name} {self.last_name}'
 
 
+class Stage(Base):
+    """
+    Class for Stage of Competitions
+    """
+    modality = models.ForeignKey(Modality, related_name="stage_modality", on_delete=models.CASCADE)
+    name = models.CharField(max_length=150, blank=False)
+    status = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Stage"
+        unique_together = ["modality", "name"]
+        ordering = ["id"]
+
+    def __str__(self):
+        return f'{self.modality} - {self.name}'
+
+
 class Results(Base):
     """
     Results of athletes in competitions
     """
-    modality = models.ForeignKey(Modality, related_name="modalities", on_delete=models.CASCADE)
-    athlete = models.ForeignKey(Athlete, related_name="athletes", on_delete=models.CASCADE)
-    value = models.DecimalField(max_digits=8, decimal_places=2, blank=False)
+    modality = models.ForeignKey(Modality, related_name="results_modality", on_delete=models.CASCADE)
+    athlete = models.ForeignKey(Athlete, related_name="results_athletes", on_delete=models.CASCADE)
+    stage = models.ForeignKey(Stage, related_name="results_stage", on_delete=models.CASCADE)
+    value = models.DecimalField(max_digits=8, decimal_places=3, blank=False)
     unity = models.CharField(max_length=1, blank=False)
 
     class Meta:
@@ -65,4 +82,4 @@ class Results(Base):
         verbose_name_plural = "Results"
 
     def __str__(self):
-        return f'{self.modality.name} - {self.athlete.name}: {self.value} {self.unity}'
+        return f'{self.modality.name} - {self.athlete.first_name} {self.athlete.last_name}: {self.value} {self.unity}'
