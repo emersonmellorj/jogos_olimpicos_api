@@ -1,3 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .models import Athlete, Modality, Stage, Results
+from .serializer import AthleteSerializer
+
+from rest_framework import viewsets, permissions, generics
+
+class AthleteViewSet(viewsets.ModelViewSet):
+    queryset = Athlete.objects.all()
+    serializer_class = AthleteSerializer
