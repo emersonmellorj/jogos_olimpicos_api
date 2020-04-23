@@ -1,3 +1,68 @@
 from django.db import models
 
-# Create your models here.
+class Base(models.Model):
+    """
+    Base class to others Models
+    """
+    created_in = models.DateTimeField(auto_now_add=True)
+    updated_in = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        """
+        Abstract Class
+        """
+        abstract = True
+
+
+class Modality(Base):
+    """
+    Class to game modes
+    """
+    name = models.CharField(max_length=255, blank=False, unique=True)
+    status = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Modality"
+        verbose_name_plural = "Modalities"
+        ordering = ["id"]
+
+    def __str__(self):
+        return self.name
+
+
+class Athlete(Base):
+    """
+    Class for creation of athletes
+    """
+    modality = models.ForeignKey(Modality, related_name="modality", on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100, blank=False)
+    last_name = models.CharField(max_length=200, blank=False)
+    age = models.IntegerField(blank=False)
+
+
+    class Meta:
+        verbose_name = "Athlete"
+        verbose_name_plural = "Athletes"
+        unique_together = ["first_name", "last_name"]
+        ordering = ["id"]
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+
+class Results(Base):
+    """
+    Results of athletes in competitions
+    """
+    modality = models.ForeignKey(Modality, related_name="modalities", on_delete=models.CASCADE)
+    athlete = models.ForeignKey(Athlete, related_name="athletes", on_delete=models.CASCADE)
+    value = models.DecimalField(max_digits=8, decimal_places=2, blank=False)
+    unity = models.CharField(max_length=1, blank=False)
+
+    class Meta:
+        verbose_name = "Result"
+        verbose_name_plural = "Results"
+
+    def __str__(self):
+        return f'{self.modality.name} - {self.athlete.name}: {self.value} {self.unity}'
