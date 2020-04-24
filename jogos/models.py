@@ -34,7 +34,7 @@ class Athlete(Base):
     """
     Class for creation of athletes
     """
-    modality = models.ForeignKey(Modality, related_name="modality", on_delete=models.CASCADE)
+    modality = models.ForeignKey(Modality, related_name="athletes", on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, blank=False)
     last_name = models.CharField(max_length=200, blank=False)
     age = models.IntegerField(blank=False)
