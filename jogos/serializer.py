@@ -47,3 +47,28 @@ class StageSerializer(serializers.ModelSerializer):
             'created_in',
             'active',
         )
+
+
+class MyRelatedField(serializers.RelatedField):
+    def to_representation(self, obj):
+        return {
+            'id': obj.pk,
+        }
+
+class ResultsSerializer(serializers.ModelSerializer):
+    modality_name = serializers.ReadOnlyField(source="modality.name")
+    stage_name = serializers.ReadOnlyField(source="stage.name")
+    first_name = serializers.ReadOnlyField(source="athlete.first_name")
+    last_name = serializers.ReadOnlyField(source="athlete.last_name")
+    class Meta:
+        model = Results
+        fields = (
+            "id",
+            "modality_name",
+            "stage_name",
+            "first_name",
+            "last_name",
+            "value",
+            "unity",
+            "created_in"
+        )

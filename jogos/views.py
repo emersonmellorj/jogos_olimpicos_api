@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from .models import Athlete, Modality, Stage, Results
-from .serializer import AthleteSerializer, ModalitySerializer, StageSerializer
+from .serializer import AthleteSerializer, ModalitySerializer, StageSerializer, ResultsSerializer
 
 from rest_framework import viewsets, permissions, generics
 from rest_framework.decorators import action
@@ -30,3 +30,8 @@ class ModalityViewSet(viewsets.ModelViewSet):
 class StageViewSet(viewsets.ModelViewSet):
     queryset = Stage.objects.all()
     serializer_class = StageSerializer
+
+
+class ResultsViewSet(viewsets.ModelViewSet):
+    queryset = Results.objects.all()
+    serializer_class = ResultsSerializer

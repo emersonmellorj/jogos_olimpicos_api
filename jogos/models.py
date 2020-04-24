@@ -2,7 +2,7 @@ from django.db import models
 
 class Base(models.Model):
     """
-    Base class to others Models
+    Base class for others Models
     """
     created_in = models.DateTimeField(auto_now_add=True)
     updated_in = models.DateTimeField(auto_now_add=True)
@@ -45,6 +45,7 @@ class Athlete(Base):
         verbose_name_plural = "Athletes"
         unique_together = ["first_name", "last_name"]
         ordering = ["id"]
+        
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
