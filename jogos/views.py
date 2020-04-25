@@ -48,16 +48,26 @@ class ResultsViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
+        # Checking if stage is registered for the chosen modality
+        obj_stage = Stage.objects.filter(modality=request.data["modality"])
+        relationship = False
+        for data in obj_stage:
+            if int(request.data["stage"]) == data.id:
+                relationship = True
+
         # Check if stage in modality is finished
-        if stage_status:
+        if stage_status and relationship:
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         
         else:
-            context = {
-                "mensagem": "Esta etapa da competição já encontra-se encerrada."
-            }
+            if relationship == False:
+                context = {
+                    "mensagem": "Esta etapa não pertence a modalidade escolhida."
+                }
+            else:
+                context = {
+                    "mensagem": "Esta etapa da competição já encontra-se encerrada."
+                }
             return Response(context, status=status.HTTP_403_FORBIDDEN)
-
-        # Preciso verificar tambem se uma etapa esta relacionada a uma modalidade
