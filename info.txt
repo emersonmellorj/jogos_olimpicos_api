@@ -23,4 +23,14 @@ Etapa: 100m rasos - Classificatoria 1
 
 Isso será permitido.
 
+- As regras para o numero de cadastro de resultados por Modalidade / Etapa e Atleta são:
+    - Na competição de 100m Rasos, apenas será permitido o cadastro de um resultado por Modalidade / Etapa para cada
+    atleta.
+
+    - Na competição de Lançamento de Dardos, será permitido o cadastro de 3 resultados por Modalidade / Etapa
+    para cada atleta.
+
+    Fora isso, será retornada uma mensagem de erro informando ao usuário que não é mais possível cadastrar resultados
+    para o atleta.
+
 
