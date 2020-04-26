@@ -1,14 +1,12 @@
 from django.shortcuts import render
 
-from .models import Athlete, Modality, Stage, Results
-from .serializer import AthleteSerializer, ModalitySerializer, StageSerializer, ResultsSerializer
-
-from rest_framework import status
-from rest_framework import viewsets, permissions, generics, mixins
+from rest_framework import status, viewsets, permissions, generics, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from django.db.models import Max, Subquery, Min, Count, Sum
+from .models import Athlete, Modality, Stage, Results
+from .serializer import AthleteSerializer, ModalitySerializer, StageSerializer, ResultsSerializer
+
 
 class AthleteViewSet(viewsets.ModelViewSet):
     queryset = Athlete.objects.all()
@@ -66,7 +64,6 @@ class ResultsViewSet(viewsets.ModelViewSet):
         """
         stage = request.data['stage']
         stage_status = Stage.objects.get(id=stage).status
-
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -77,14 +74,18 @@ class ResultsViewSet(viewsets.ModelViewSet):
             if int(request.data["stage"]) == data.id:
                 relationship = True
 
+        # Checking if athlete is registered for the chosen modality
+        obj_athlete = Athlete.objects.get(pk=request.data['athlete'])
+        modality_for_athlete = False
+        if obj_athlete.modality_id == int(request.data["modality"]):
+            modality_for_athlete = True
+        
         """
         Each athlete have 3 chances in "Lançamento de Dardo" for each stage
         Each athlete have 1 chance in "100m Rasos" for each stage
         """
         chances_athlete = Results.objects.filter(
-            stage=stage, 
-            modality=request.data["modality"], 
-            athlete=request.data["athlete"]
+            stage=stage, modality=request.data["modality"], athlete=request.data["athlete"]
         ) 
 
         len_results = len([chance.value for chance in chances_athlete])
@@ -100,11 +101,24 @@ class ResultsViewSet(viewsets.ModelViewSet):
                 have_chances = True
 
         # Validations before add result in DB
-        if stage_status and relationship and have_chances:
+        return_data = self.validate_create_data(stage_status, relationship, have_chances, 
+                                                modality_for_athlete, serializer)
+
+        if 'mensagem' not in return_data:
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=return_data)
+        else:
+            return Response(return_data, status=status.HTTP_403_FORBIDDEN)
+
+
+    def validate_create_data(self, stage_status, relationship, have_chances, modality_for_athlete, serializer):
+        """
+        Method that validate data before save in DB
+        """
+        if stage_status and relationship and have_chances and modality_for_athlete:
             self.perform_create(serializer)
-            self.best_value_athlete(chances_athlete, serializer, len_results)
+            self.best_value_athlete(self.chances_athlete, serializer, self.len_results)
             headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+            return headers
         
         else:
             if relationship == False:
@@ -115,13 +129,16 @@ class ResultsViewSet(viewsets.ModelViewSet):
                 context = {
                     "mensagem": "Esta etapa da competição já encontra-se encerrada."
                 }
+            elif modality_for_athlete == False:
+                context = {
+                    "mensagem": "Este atleta não pertence à modalidade escolhida."
+                }
             else:
                 context = {
                     "mensagem": "Para esta etapa e modalidade ja existe(m) resultado(s) cadastrado(s) para o atleta."
                 }
+            return context
 
-            return Response(context, status=status.HTTP_403_FORBIDDEN)
-        
 
     @staticmethod
     def best_value_athlete(chances_athlete, serializer, len_results):

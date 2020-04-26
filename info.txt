@@ -22,6 +22,10 @@ http://localhost:8000/api/v1/modality/3/athletes/
 
 http://localhost:8000/api/v1/results/
 
+http://localhost:8000/api/v1/stage/2/ranking
+
+- Somente será permitido cadastrar um resultado para um atleta se o mesmo pertencer à modalidade no qual 
+esta sendo cadastrada. Caso contrário o usuario receberá uma mensagem de erro.
 
 - Somente sera permitido cadastrar um resultado se a etapa ainda nao foi finalizada.
 
@@ -48,6 +52,6 @@ Isso será permitido.
     para o atleta.
 
 
-
-Preciso do id do atleta e do melhor valor do atleta
+Para finalizar uma etapa da competição basta atualizar o atributo status = False. 
+Se status = True a competição está ativa.
 

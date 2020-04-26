@@ -1,7 +1,5 @@
 from django.db import models
 
-from django.db.models import Max
-
 class Base(models.Model):
     """
     Base class for others Models
@@ -41,13 +39,11 @@ class Athlete(Base):
     last_name = models.CharField(max_length=200, blank=False)
     age = models.IntegerField(blank=False)
 
-
     class Meta:
         verbose_name = "Athlete"
         verbose_name_plural = "Athletes"
         unique_together = ["first_name", "last_name"]
-        ordering = ["id"]
-        
+        ordering = ["id"]  
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -85,5 +81,4 @@ class Results(Base):
         verbose_name_plural = "Results"
 
     def __str__(self):
-        #return f'{self.modality.name} - {self.athlete.first_name} {self.athlete.last_name}: {self.value} {self.unity}'
         return f'{self.modality.name} {self.athlete.first_name} {self.athlete.last_name}'

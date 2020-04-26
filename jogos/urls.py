@@ -6,8 +6,7 @@ from .views import (
     AthleteViewSet,
     ModalityViewSet,
     StageViewSet,
-    ResultsViewSet
-    
+    ResultsViewSet  
 )
 
 """
