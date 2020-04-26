@@ -55,3 +55,5 @@ Isso será permitido.
 Para finalizar uma etapa da competição basta atualizar o atributo status = False. 
 Se status = True a competição está ativa.
 
+
+pytest -s -v tests.py 

@@ -24,6 +24,7 @@ class Modality(Base):
     class Meta:
         verbose_name = "Modality"
         verbose_name_plural = "Modalities"
+        unique_together = ["name"]
         ordering = ["id"]
 
     def __str__(self):
