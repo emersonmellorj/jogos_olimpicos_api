@@ -4,9 +4,11 @@ from .models import Athlete, Modality, Stage, Results
 from .serializer import AthleteSerializer, ModalitySerializer, StageSerializer, ResultsSerializer
 
 from rest_framework import status
-from rest_framework import viewsets, permissions, generics
+from rest_framework import viewsets, permissions, generics, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
+
+from django.db.models import Max, Subquery, Min, Count, Sum
 
 class AthleteViewSet(viewsets.ModelViewSet):
     queryset = Athlete.objects.all()
@@ -31,6 +33,26 @@ class ModalityViewSet(viewsets.ModelViewSet):
 class StageViewSet(viewsets.ModelViewSet):
     queryset = Stage.objects.all()
     serializer_class = StageSerializer
+
+    @action(detail=True, methods=['get'])
+    def ranking(self, request, pk=None):
+        """
+        Show the ranking of athletes in stage of competition
+        """
+        pk = self.kwargs['pk']
+        stage = self.get_object()
+
+        modality = Stage.objects.get(id=self.kwargs['pk']).modality
+
+        if 'Dardo' in modality.name or 'dardo' in modality.name:
+            queryset = Results.objects.filter(stage=pk, active=True).order_by('-value')
+            serializer = ResultsSerializer(queryset, many=True)
+        else:
+            serializer = ResultsSerializer(Results.objects.filter(stage=pk).order_by('value'), many=True)
+        
+        #print(serializer.data)
+        return Response(enumerate(serializer.data, start=1))
+        
 
 
 class ResultsViewSet(viewsets.ModelViewSet):
@@ -64,6 +86,7 @@ class ResultsViewSet(viewsets.ModelViewSet):
             modality=request.data["modality"], 
             athlete=request.data["athlete"]
         ) 
+
         len_results = len([chance.value for chance in chances_athlete])
         modality_name = Modality.objects.get(pk=request.data["modality"]).name
         have_chances = False
@@ -79,6 +102,7 @@ class ResultsViewSet(viewsets.ModelViewSet):
         # Validations before add result in DB
         if stage_status and relationship and have_chances:
             self.perform_create(serializer)
+            self.best_value_athlete(chances_athlete, serializer, len_results)
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         
@@ -95,5 +119,27 @@ class ResultsViewSet(viewsets.ModelViewSet):
                 context = {
                     "mensagem": "Para esta etapa e modalidade ja existe(m) resultado(s) cadastrado(s) para o atleta."
                 }
-            
+
             return Response(context, status=status.HTTP_403_FORBIDDEN)
+        
+
+    @staticmethod
+    def best_value_athlete(chances_athlete, serializer, len_results):
+        """
+        Method that will compare the values of result for each athlete and define the best value
+        Modality: Lançamento de Dardos only
+        """
+        if len_results > 0:
+            result_bd = chances_athlete.filter(active=True).first()
+            pk_result_bd = result_bd.pk
+            result_value_bd = result_bd.value
+
+            recent_result = Results.objects.last()
+            pk_recent_result = recent_result.pk
+
+            if result_value_bd > float(serializer.data['value']):
+                recent_result.active=False
+                recent_result.save()
+            else:
+                result_bd.active=False
+                result_bd.save()

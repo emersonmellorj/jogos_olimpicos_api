@@ -34,23 +34,6 @@ class AthleteSerializer(Base):
         )
 
 
-class ModalitySerializer(serializers.ModelSerializer):
-    """
-    This serializer will show the modalities and the athletes registered in each modality
-    """
-    athletes = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='athlete-detail')
-
-    class Meta:
-        model = Modality
-        fields = (
-            'id',
-            'name',
-            'athletes',
-            'created_in',
-            'active',
-        )
-
-
 class StageSerializer(Base):
     """
     In portuguese: Etapa
@@ -69,6 +52,25 @@ class StageSerializer(Base):
             'status',
             'created_in',
             'updated_in',
+            'active',
+        )
+
+
+class ModalitySerializer(serializers.ModelSerializer):
+    """
+    This serializer will show the modalities, stages and the athletes registered in each modality
+    """
+    athletes = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='athlete-detail')
+    stages_modality = StageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Modality
+        fields = (
+            'id',
+            'name',
+            'athletes',
+            'stages_modality',
+            'created_in',
             'active',
         )
 

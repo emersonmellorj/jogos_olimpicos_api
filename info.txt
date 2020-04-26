@@ -1,6 +1,20 @@
+
+##########################################
+## Cache com Redis
+## Controle de requisicoes (throthling)
+## Autenticacao com Token
+## Paginacao dos resultados
+##########################################
+
 http://localhost:8000/api/v1/stage/
 
 http://localhost:8000/api/v1/modality/
+
+    Ira retornar os dados da modalidade escolhida bem como os atletas desta modalidade + as etapas para esta
+    modalidade.
+
+    Para verificar / atualizar / excluir uma modalidade especifica:
+    http://localhost:8000/api/v1/modality/3/
 
 http://localhost:8000/api/v1/athletes/
 
@@ -33,4 +47,7 @@ Isso será permitido.
     Fora isso, será retornada uma mensagem de erro informando ao usuário que não é mais possível cadastrar resultados
     para o atleta.
 
+
+
+Preciso do id do atleta e do melhor valor do atleta
 

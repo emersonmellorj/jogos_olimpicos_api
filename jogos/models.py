@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.db.models import Max
+
 class Base(models.Model):
     """
     Base class for others Models
@@ -55,7 +57,7 @@ class Stage(Base):
     """
     Class for Stage of Competitions
     """
-    modality = models.ForeignKey(Modality, related_name="stage_modality", on_delete=models.CASCADE)
+    modality = models.ForeignKey(Modality, related_name="stages_modality", on_delete=models.CASCADE)
     name = models.CharField(max_length=150, blank=False)
     status = models.BooleanField(default=True)
 
@@ -83,4 +85,5 @@ class Results(Base):
         verbose_name_plural = "Results"
 
     def __str__(self):
-        return f'{self.modality.name} - {self.athlete.first_name} {self.athlete.last_name}: {self.value} {self.unity}'
+        #return f'{self.modality.name} - {self.athlete.first_name} {self.athlete.last_name}: {self.value} {self.unity}'
+        return f'{self.modality.name} {self.athlete.first_name} {self.athlete.last_name}'
