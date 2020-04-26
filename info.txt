@@ -1,9 +1,9 @@
 
 ##########################################
-## Cache com Redis
-## Controle de requisicoes (throthling)
+## Cache com Redis (OK)
+## Controle de requisicoes (Throttling) (OK) 
 ## Autenticacao com Token
-## Paginacao dos resultados
+## Paginacao dos resultados (OK)
 ##########################################
 
 http://localhost:8000/api/v1/stage/
@@ -51,9 +51,17 @@ Isso será permitido.
     Fora isso, será retornada uma mensagem de erro informando ao usuário que não é mais possível cadastrar resultados
     para o atleta.
 
+- Um usuário anônimo só terá direito a 10 requisições por minutos na API.
+- O usuário que estiver autenticado terá direito a 10 requisições por segundo.
 
-Para finalizar uma etapa da competição basta atualizar o atributo status = False. 
+- Algumas viewsets foram configuradas para guardar o resultado no cache do Redis. 
+Com isso, a resposta é muito mais rápida para requisições que foram feitas anteriormente.
+
+- Para finalizar uma etapa da competição basta atualizar o atributo status = False. 
 Se status = True a competição está ativa.
 
+- A API esta configurada para paginar a cada 10 linhas retornadas.
 
 pytest -s -v tests.py 
+
+OBS: PARA IMPLANTAR PRECISO ALEM DO GUNICORN, DO REDIS INSTALADO NO SERVIDOR E EXECUTANDO
