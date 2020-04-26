@@ -28,7 +28,7 @@ class ModalityViewSet(viewsets.ModelViewSet):
         """
         Function with action that will allow the creation of route modality/athletes
         """
-        self.pagination_class.page_size = 2
+        self.pagination_class.page_size = 10
         athlete = Athlete.objects.filter(athlete_id=pk)
         page = self.paginate_queryset(athlete)
 
@@ -105,8 +105,6 @@ class ResultsViewSet(viewsets.ModelViewSet):
         Only will be permitted add results if stage is True (in progress). 
         If stage = False (finished) add results will be forbidden.
         """
-        stage = request.data['stage']
-        stage_status = Stage.objects.get(id=stage).status
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -127,6 +125,8 @@ class ResultsViewSet(viewsets.ModelViewSet):
         Each athlete has 3 chances in "Lançamento de Dardo" for each stage
         Each athlete has 1 chance in "100m Rasos" for each stage
         """
+        stage = request.data['stage']
+        stage_status = Stage.objects.get(id=stage).status
         chances_athlete = Results.objects.filter(
             stage=stage, modality=request.data["modality"], athlete=request.data["athlete"]
         ) 
@@ -145,20 +145,21 @@ class ResultsViewSet(viewsets.ModelViewSet):
 
         # Validations before add result in DB
         return_data = self.validate_create_data(stage_status, relationship, have_chances, 
-                                                modality_for_athlete, serializer)
+                                                modality_for_athlete, serializer, chances_athlete, len_results)
 
         if 'mensagem' not in return_data:
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=return_data)
         else:
             return Response(return_data, status=status.HTTP_403_FORBIDDEN)
 
-    def validate_create_data(self, stage_status, relationship, have_chances, modality_for_athlete, serializer):
+    def validate_create_data(self, stage_status, relationship, have_chances, 
+                            modality_for_athlete, serializer, chances_athlete, len_results):
         """
         Method that validate data before save in DB
         """
         if stage_status and relationship and have_chances and modality_for_athlete:
             self.perform_create(serializer)
-            self.best_value_athlete(self.chances_athlete, serializer, self.len_results)
+            self.best_value_athlete(chances_athlete, serializer, len_results)
             headers = self.get_success_headers(serializer.data)
             return headers
         
