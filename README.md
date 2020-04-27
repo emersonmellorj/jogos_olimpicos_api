@@ -153,6 +153,7 @@ esta sendo cadastrada. Caso contrário o usuario receberá uma mensagem de erro.
 - Somente será permitido cadastrar um resultado se a etapa ainda não foi finalizada.
 
 - Somente será permitido cadastrar um resultado se a etapa escolhida estiver registrada para a competição escolhida.
+```
 Ex:
 Modalidade: 100m rasos
 Etapa: Lançamento de Dardo - Classificatoria 1
@@ -163,6 +164,7 @@ Modalidade: 100m rasos
 Etapa: 100m rasos - Classificatoria 1
 
 Isto será permitido.
+```
 
 - As regras para o numero de cadastro de resultados por Modalidade / Etapa e Atleta são:
     Na competição de 100m Rasos, apenas será permitido o cadastro de um resultado por Modalidade / Etapa para cada atleta.
