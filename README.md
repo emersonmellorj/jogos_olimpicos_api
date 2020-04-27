@@ -31,8 +31,22 @@ urllib3==1.25.9
 wcwidth==0.1.9
 zipp==3.1.0
 
+Obs: Como não publiquei a API, utilizei apenas o servidor de desenvolvimento do Django.
+
+Em relação aos testes automáticos, utilizei a biblioteca Pytest para desenvolver as classes e métodos de testes. Não fiz o uso da biblioteca UNITTEST.
+
 Em relação ao Django Rest Framework, utilizei alguns recursos importantes como:
 
-- Throttling (controle de requisições para usuários anônimos e cadastrados)
-- Cache das requisições no Redis (configurei apenas 1 minuto de cache a nível de testes)
-- 
+- Throttling (controle de requisições para usuários anônimos e cadastrados);
+- Cache das requisições no Redis (configurei apenas 1 minuto de cache a nível de testes);
+- Acesso a API com autenticação por Token;
+- Resultados paginados a cada 10 registros.
+
+Utilizei também o recurso Router para a criação automática de rotas da API, conforme a criação das Views. Estas foram desenvolvidas baseadas em viewsets.
+
+Temos os métodos GET, POST, PUT e DELETE para a maioria dos endpoints. Para o endpoint do Ranking das Etapas de cada categoria temos apenas o método GET disponível.
+
+Estes são os endpoints criados:
+
+Seguem abaixo algumas regras da API:
+
