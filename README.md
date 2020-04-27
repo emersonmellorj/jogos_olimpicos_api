@@ -57,7 +57,7 @@ Foi utilizado o git para versionar cada alteração quer era realizada nos códi
 Em relação ao Django Rest Framework, utilizei alguns recursos importantes como:
 
 - Throttling (controle de requisições para usuários anônimos e cadastrados);
-- Cache das requisições no Redis (configurei apenas 1 minuto de cache a nível de testes);
+- Cache das requisições no Redis (configurei apenas 1 minuto de cache a nível de testes). Coloquei apenas algumas views para cachear os resultados;
 - Acesso a API com autenticação por Token;
 - Resultados paginados a cada 10 registros.
 
