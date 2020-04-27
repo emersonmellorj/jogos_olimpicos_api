@@ -77,6 +77,8 @@ GET / POST:
 PUT / DELETE:
 - http://localhost:8000/api/v1/stage/<pk>/
 
+Obs: Para finalizar uma etapa, basta realizer um put no stage desejado, alterando a flag status == False. Quando uma etapa é criada, este campo recebe o valor True.
+
 
 ## Modalidade (Modality):
 
@@ -119,4 +121,28 @@ Para visualializar o Ranking de uma etapa específica de uma competição, basta
 
 
 Seguem abaixo algumas regras da API:
+
+- Somente será permitido cadastrar um resultado para um atleta se o mesmo pertencer à modalidade no qual 
+esta sendo cadastrada. Caso contrário o usuario receberá uma mensagem de erro.
+
+- Somente será permitido cadastrar um resultado se a etapa ainda não foi finalizada.
+
+- Somente será permitido cadastrar um resultado se a etapa escolhida estiver registrada para a competição escolhida.
+Ex:
+Modalidade: 100m rasos
+Etapa: Lançamento de Dardo - Classificatoria 1
+
+Isto não será permitido.
+
+Modalidade: 100m rasos
+Etapa: 100m rasos - Classificatoria 1
+
+Isto será permitido.
+
+- As regras para o numero de cadastro de resultados por Modalidade / Etapa e Atleta são:
+    Na competição de 100m Rasos, apenas será permitido o cadastro de um resultado por Modalidade / Etapa para cada atleta.
+
+    Na competição de Lançamento de Dardos, será permitido o cadastro de 3 resultados por Modalidade / Etapa para cada atleta. Fora isso, será retornada uma mensagem de erro informando ao usuário que não é mais possível cadastrar resultados para o atleta.
+
+- Um usuário anônimo só terá direito a 10 requisições por minutos na API. O usuário registrado terá direito a 100 requisçoes por segundo (regras definidas apenas a nível de testes, sem levar em consideração a capacidade do recurso que iria receber esta API).
 
