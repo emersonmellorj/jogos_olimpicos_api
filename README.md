@@ -170,7 +170,7 @@ Isto será permitido.
 - As regras para o numero de cadastro de resultados por Modalidade / Etapa e Atleta são:
     Na competição de 100m Rasos, apenas será permitido o cadastro de um resultado por Modalidade / Etapa para cada atleta.
 
-    Na competição de Lançamento de Dardos, será permitido o cadastro de 3 resultados por Modalidade / Etapa para cada atleta. Fora isso, será retornada uma mensagem de erro informando ao usuário que não é mais possível cadastrar resultados para o atleta.
+    Na competição de Lançamento de Dardos, será permitido o cadastro de 3 resultados por Modalidade / Etapa para cada atleta. Fora isso, será retornada uma mensagem de erro informando ao usuário que não é mais possível cadastrar resultados para o atleta. Apenas o melhor resultado aparecerá no Ranking da Etapa.
 
 - Um usuário anônimo só terá direito a 10 requisições por minutos na API. O usuário registrado terá direito a 100 requisçoes por segundo (regras definidas apenas a nível de testes, sem levar em consideração a capacidade do recurso que iria receber esta API).
 
