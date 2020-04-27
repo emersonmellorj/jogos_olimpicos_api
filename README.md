@@ -110,7 +110,7 @@ GET / POST:
 - http://localhost:8000/api/v1/modality/
 
 PUT / DELETE:
-- http://localhost:8000/api/v1/modality/<pk>/
+- http://localhost:8000/api/v1/modality/{pk}/
 
 Ira retornar os dados da modalidade escolhida bem como os atletas desta modalidade + as etapas criadas para esta modalidade.
 
@@ -119,12 +119,12 @@ Ira retornar os dados da modalidade escolhida bem como os atletas desta modalida
 
 GET / POST:
 http://localhost:8000/api/v1/athletes/
-http://localhost:8000/api/v1/modality/<modality_pk>/athletes/
+http://localhost:8000/api/v1/modality/{modality_pk}/athletes/
 
 Através deste endpoint acima será possível verificar todos os atletas cadastrados para uma determinada modalidade.
 
 PUT / DELETE:
-http://localhost:8000/api/v1/athletes/1/
+http://localhost:8000/api/v1/athletes/{pk}/
 
 
 ### Resultados (Results):
@@ -133,13 +133,13 @@ GET / POST:
 http://localhost:8000/api/v1/results/
 
 PUT / DELETE:
-http://localhost:8000/api/v1/results/<pk>/
+http://localhost:8000/api/v1/results/{pk}/
 
 
 ### Ranking:
 
 GET / LIST
-http://localhost:8000/api/v1/stage/<stage_pk>/ranking/
+http://localhost:8000/api/v1/stage/{stage_pk}/ranking/
 
 Para visualializar o Ranking de uma etapa específica de uma competição, basta colocar em <stage_pk> o código da etapa que foi cadastrada no banco.
 
