@@ -135,11 +135,13 @@ http://localhost:8000/api/v1/results/<pk>/
 
 ### Ranking:
 
-Apenas GET / LIST
+GET / LIST
 http://localhost:8000/api/v1/stage/<stage_pk>/ranking/
 
 Para visualializar o Ranking de uma etapa específica de uma competição, basta colocar em <stage_pk> o código da etapa que foi cadastrada no banco.
 
+
+## Regras de funcionamento da API:
 
 Seguem abaixo algumas regras da API:
 
