@@ -51,11 +51,17 @@ Para nivelarmos o entendimento da lógica da API, temos os seguintes Modelos de 
 - Modalidade (Modality): São as modalidades dos jogos.
 Ex:. 100m Rasos e Lançamento de Dardos
 
-- Etapa (Stage): Sao as etapas de cada modalidade.
-Ex.: Classificatória 1 que pertence a 100m Rasos
+- Etapa (Stage): São as etapas de cada modalidade.
+Ex.: Classificatória 1 que pertence a 100m Rasos;
      Classificatória 1 que pertence a Lançamento de Dardos.
      
-- 
+- Atleta (Athlete): Cadastro dos atletas das competições.
+Ex.: João Brasil que está inscrito na modalidade 100m Rasos.
+
+- Resultados (Results): É aonde cadastramos os resultados dos atletas. Conforme especificado no documento inicial da demanda,  poderá ser cadastrado apenas um resultado para a modalidade 100m Rasos por etapa para cada atleta e 3 resultados para a modalidade Lançamento de Dardos por etapa para cada atleta.
+
+- Ranking: A qualquer momento poderá ser visualizado o ranking das etapas de cada competição.
+
 
 Estes foram os endpoints criados:
 
