@@ -33,7 +33,9 @@ zipp==3.1.0
 
 Obs: Como não publiquei a API, utilizei apenas o servidor de desenvolvimento do Django.
 
+
 Em relação aos testes automáticos, utilizei a biblioteca Pytest para desenvolver as classes e métodos de testes. Não fiz o uso da biblioteca UNITTEST.
+
 
 Em relação ao Django Rest Framework, utilizei alguns recursos importantes como:
 
@@ -44,7 +46,9 @@ Em relação ao Django Rest Framework, utilizei alguns recursos importantes como
 
 Utilizei também o recurso Router para a criação automática de rotas da API, conforme a criação das Views. Estas foram desenvolvidas baseadas em viewsets.
 
+
 Temos os métodos GET, POST, PUT e DELETE para a maioria dos endpoints. Para o endpoint do Ranking das Etapas de cada categoria temos apenas o método GET disponível.
+
 
 Para nivelarmos o entendimento da lógica da API, temos os seguintes Modelos de Dados:
 
@@ -65,25 +69,53 @@ Ex.: João Brasil que está inscrito na modalidade 100m Rasos.
 
 Estes foram os endpoints criados:
 
-## G
+## Stage (Etapa):
+
+GET / POST:
 - http://localhost:8000/api/v1/stage/
-- http://localhost:8000/api/v1/stage/2/
+
+PUT / DELETE:
+- http://localhost:8000/api/v1/stage/<pk>/
+
+
+## Modalidade (Modality):
+
+GET / POST:
 - http://localhost:8000/api/v1/modality/
-- http://localhost:8000/api/v1/modality/3/
+
+PUT / DELETE:
+- http://localhost:8000/api/v1/modality/<pk>/
 
 Ira retornar os dados da modalidade escolhida bem como os atletas desta modalidade + as etapas criadas para esta modalidade.
-Para verificar / atualizar / excluir uma modalidade especifica:
-http://localhost:8000/api/v1/modality/3/
 
+
+## Atletas (Athletes):
+
+GET / POST:
 http://localhost:8000/api/v1/athletes/
+http://localhost:8000/api/v1/modality/<modality_pk>/athletes/
+
+Através deste endpoint acima será possível verificar todos os atletas cadastrados para uma determinada modalidade.
+
+PUT / DELETE:
 http://localhost:8000/api/v1/athletes/1/
 
-http://localhost:8000/api/v1/modality/3/athletes/
 
+## Resultados (Results):
+
+GET / POST:
 http://localhost:8000/api/v1/results/
-http://localhost:8000/api/v1/results/5/
 
-http://localhost:8000/api/v1/stage/2/ranking/
+PUT / DELETE:
+http://localhost:8000/api/v1/results/<pk>/
+
+
+## Ranking:
+
+Apenas GET / LIST
+http://localhost:8000/api/v1/stage/<stage_pk>/ranking/
+
+Para visualializar o Ranking de uma etapa específica de uma competição, basta colocar em <stage_pk> o código da etapa que foi cadastrada no banco.
 
 
 Seguem abaixo algumas regras da API:
