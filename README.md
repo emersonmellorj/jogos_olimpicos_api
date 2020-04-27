@@ -2,7 +2,7 @@
 
 Seguem abaixo as orientações e informações sobre o desenvolvimento da API para os Jogos Olímpicos.
 
-Para o desenvolvimento da solução foram utilizadas as bibliotecas da linguagem Python3:
+Para o desenvolvimento da solução foram utilizadas as bibliotecas da linguagem Python 3:
 
 ```
 certifi==2020.4.5.1
@@ -32,6 +32,7 @@ urllib3==1.25.9
 wcwidth==0.1.9
 zipp==3.1.0
 ```
+A versão do Python utilizada é a 3.7 e o banco SQLite.
 
 Obs: Como não publiquei a API, utilizei apenas o servidor de desenvolvimento do Django.
 
