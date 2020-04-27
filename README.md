@@ -33,9 +33,24 @@ zipp==3.1.0
 
 Obs: Como não publiquei a API, utilizei apenas o servidor de desenvolvimento do Django.
 
+Toda a API foi desenvolvida em um ambiente virtual, sendo inclusive instaladas estas bibliotecas dentro do mesmo.
 
-Em relação aos testes automáticos, utilizei a biblioteca Pytest para desenvolver as classes e métodos de testes. Não fiz o uso da biblioteca UNITTEST.
+Não retirei a SECRET_KEY do arquivo settings devido a não ter publicado a aplicação.
 
+Para que a API seja colocada em funcionamento, é necessário a instalação do Redis no servidor. Após a instalação o mesmo deve estar sendo executado.
+
+
+## Testes Automatizados:
+
+Em relação aos testes automatizados, utilizei a biblioteca Pytest para desenvolver as classes e métodos de testes. Não fiz o uso da biblioteca UNITTEST.
+
+
+## Versionamento do código:
+
+Foi utilizado o git para versionar cada alteração quer era realizada nos códigos da API.
+
+
+## DRF e recursos:
 
 Em relação ao Django Rest Framework, utilizei alguns recursos importantes como:
 
@@ -47,8 +62,12 @@ Em relação ao Django Rest Framework, utilizei alguns recursos importantes como
 Utilizei também o recurso Router para a criação automática de rotas da API, conforme a criação das Views. Estas foram desenvolvidas baseadas em viewsets.
 
 
+# Métodos pelos quais a API responde:
+
 Temos os métodos GET, POST, PUT e DELETE para a maioria dos endpoints. Para o endpoint do Ranking das Etapas de cada categoria temos apenas o método GET disponível.
 
+
+## Lógica de funcionamento da API:
 
 Para nivelarmos o entendimento da lógica da API, temos os seguintes Modelos de Dados:
 
@@ -67,9 +86,11 @@ Ex.: João Brasil que está inscrito na modalidade 100m Rasos.
 - Ranking: A qualquer momento poderá ser visualizado o ranking das etapas de cada competição.
 
 
+## Endpoints da API:
+
 Estes foram os endpoints criados:
 
-## Stage (Etapa):
+### Stage (Etapa):
 
 GET / POST:
 - http://localhost:8000/api/v1/stage/
@@ -80,7 +101,7 @@ PUT / DELETE:
 Obs: Para finalizar uma etapa, basta realizer um put no stage desejado, alterando a flag status == False. Quando uma etapa é criada, este campo recebe o valor True.
 
 
-## Modalidade (Modality):
+### Modalidade (Modality):
 
 GET / POST:
 - http://localhost:8000/api/v1/modality/
@@ -91,7 +112,7 @@ PUT / DELETE:
 Ira retornar os dados da modalidade escolhida bem como os atletas desta modalidade + as etapas criadas para esta modalidade.
 
 
-## Atletas (Athletes):
+### Atletas (Athletes):
 
 GET / POST:
 http://localhost:8000/api/v1/athletes/
@@ -103,7 +124,7 @@ PUT / DELETE:
 http://localhost:8000/api/v1/athletes/1/
 
 
-## Resultados (Results):
+### Resultados (Results):
 
 GET / POST:
 http://localhost:8000/api/v1/results/
@@ -112,7 +133,7 @@ PUT / DELETE:
 http://localhost:8000/api/v1/results/<pk>/
 
 
-## Ranking:
+### Ranking:
 
 Apenas GET / LIST
 http://localhost:8000/api/v1/stage/<stage_pk>/ranking/
