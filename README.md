@@ -173,3 +173,6 @@ Isto será permitido.
 
 - Um usuário anônimo só terá direito a 10 requisições por minutos na API. O usuário registrado terá direito a 100 requisçoes por segundo (regras definidas apenas a nível de testes, sem levar em consideração a capacidade do recurso que iria receber esta API).
 
+
+**_OBS:_** Devido ao cache das requisicoes que sao feitas na API no Redis, será preciso aguardar 1 minuto para validar as operaçoes via consultas na API. Se quiser ter a visualização em tempo real, os objetos deverão ser consultados pelo Django Admin.
+
