@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'jogos',
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # DRF
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly', # Autorizacao para os clientes
@@ -155,4 +157,4 @@ CACHES = {
         }
     }
 
-CACHE_TTL = 60 * 15 # 15 minutos de cache para as requisicoes
+CACHE_TTL = 60 * 1 # 1 minuto de cache para as requisicoes

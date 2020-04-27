@@ -2,27 +2,31 @@
 ##########################################
 ## Cache com Redis (OK)
 ## Controle de requisicoes (Throttling) (OK) 
-## Autenticacao com Token
+## Autenticacao com Token (OK)
 ## Paginacao dos resultados (OK)
 ##########################################
 
 http://localhost:8000/api/v1/stage/
+http://localhost:8000/api/v1/stage/2/
 
 http://localhost:8000/api/v1/modality/
+http://localhost:8000/api/v1/modality/3/
 
-    Ira retornar os dados da modalidade escolhida bem como os atletas desta modalidade + as etapas para esta
+    Ira retornar os dados da modalidade escolhida bem como os atletas desta modalidade + as etapas criadas para esta
     modalidade.
 
     Para verificar / atualizar / excluir uma modalidade especifica:
     http://localhost:8000/api/v1/modality/3/
 
 http://localhost:8000/api/v1/athletes/
+http://localhost:8000/api/v1/athletes/1/
 
 http://localhost:8000/api/v1/modality/3/athletes/
 
 http://localhost:8000/api/v1/results/
+http://localhost:8000/api/v1/results/5/
 
-http://localhost:8000/api/v1/stage/2/ranking
+http://localhost:8000/api/v1/stage/2/ranking/
 
 - Somente será permitido cadastrar um resultado para um atleta se o mesmo pertencer à modalidade no qual 
 esta sendo cadastrada. Caso contrário o usuario receberá uma mensagem de erro.
@@ -65,3 +69,11 @@ Se status = True a competição está ativa.
 pytest -s -v tests.py 
 
 OBS: PARA IMPLANTAR PRECISO ALEM DO GUNICORN, DO REDIS INSTALADO NO SERVIDOR E EXECUTANDO
+
+Token admin: a584711ab6d173e831f6927ad5d0baef297745b2
+
+OBS: Devido ao cache no Redis das requisicoes que sao feitas na API, 
+será preciso aguardar 1 minuto para validar as operaçoes via consultas na API. Se quiser ter a visualização 
+em tempo real, favor consultar os objetos pelo Django Admin.
+
+VERIFICAR SE EXISTE ALGUMA CONFIGURACAO EXTRA DE CACHE
