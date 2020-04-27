@@ -46,8 +46,20 @@ Utilizei também o recurso Router para a criação automática de rotas da API, 
 
 Temos os métodos GET, POST, PUT e DELETE para a maioria dos endpoints. Para o endpoint do Ranking das Etapas de cada categoria temos apenas o método GET disponível.
 
+Para nivelarmos o entendimento da lógica da API, temos os seguintes Modelos de Dados:
+
+- Modalidade (Modality): São as modalidades dos jogos.
+Ex:. 100m Rasos e Lançamento de Dardos
+
+- Etapa (Stage): Sao as etapas de cada modalidade.
+Ex.: Classificatória 1 que pertence a 100m Rasos
+     Classificatória 1 que pertence a Lançamento de Dardos.
+     
+- 
+
 Estes foram os endpoints criados:
 
+## G
 - http://localhost:8000/api/v1/stage/
 - http://localhost:8000/api/v1/stage/2/
 - http://localhost:8000/api/v1/modality/
