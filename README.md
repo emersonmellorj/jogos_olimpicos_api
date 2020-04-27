@@ -32,7 +32,7 @@ urllib3==1.25.9
 wcwidth==0.1.9
 zipp==3.1.0
 ```
-A versão do Python utilizada é a 3.7 e o banco SQLite.
+A versão do Python utilizada foi a 3.7 e o banco SQLite.
 
 Obs: Como não publiquei a API, utilizei apenas o servidor de desenvolvimento do Django.
 
