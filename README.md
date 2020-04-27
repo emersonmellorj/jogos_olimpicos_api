@@ -46,7 +46,27 @@ Utilizei também o recurso Router para a criação automática de rotas da API, 
 
 Temos os métodos GET, POST, PUT e DELETE para a maioria dos endpoints. Para o endpoint do Ranking das Etapas de cada categoria temos apenas o método GET disponível.
 
-Estes são os endpoints criados:
+Estes foram os endpoints criados:
+
+- http://localhost:8000/api/v1/stage/
+- http://localhost:8000/api/v1/stage/2/
+- http://localhost:8000/api/v1/modality/
+- http://localhost:8000/api/v1/modality/3/
+
+Ira retornar os dados da modalidade escolhida bem como os atletas desta modalidade + as etapas criadas para esta modalidade.
+Para verificar / atualizar / excluir uma modalidade especifica:
+http://localhost:8000/api/v1/modality/3/
+
+http://localhost:8000/api/v1/athletes/
+http://localhost:8000/api/v1/athletes/1/
+
+http://localhost:8000/api/v1/modality/3/athletes/
+
+http://localhost:8000/api/v1/results/
+http://localhost:8000/api/v1/results/5/
+
+http://localhost:8000/api/v1/stage/2/ranking/
+
 
 Seguem abaixo algumas regras da API:
 
