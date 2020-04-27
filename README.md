@@ -4,6 +4,7 @@ Seguem abaixo as orientações e informações sobre o desenvolvimento da API pa
 
 Para o desenvolvimento da solução foram utilizadas as bibliotecas da linguagem Python3:
 
+```
 certifi==2020.4.5.1
 chardet==3.0.4
 Django==2.2.9
@@ -30,6 +31,7 @@ text-unidecode==1.3
 urllib3==1.25.9
 wcwidth==0.1.9
 zipp==3.1.0
+```
 
 Obs: Como não publiquei a API, utilizei apenas o servidor de desenvolvimento do Django.
 
