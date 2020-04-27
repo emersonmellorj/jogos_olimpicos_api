@@ -99,7 +99,7 @@ GET / POST:
 - http://localhost:8000/api/v1/stage/
 
 PUT / DELETE:
-- http://localhost:8000/api/v1/stage/<pk>/
+- http://localhost:8000/api/v1/stage/{pk}/
 
 Obs: Para finalizar uma etapa, basta realizer um put no stage desejado, alterando a flag status == False. Quando uma etapa é criada, este campo recebe o valor True.
 
