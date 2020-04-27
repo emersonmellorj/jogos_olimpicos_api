@@ -176,3 +176,5 @@ Isto será permitido.
 
 **_OBS:_** Devido ao cache das requisicoes que sao feitas na API no Redis, será preciso aguardar 1 minuto para validar as operaçoes via consultas na API. Se quiser ter a visualização em tempo real, os objetos deverão ser consultados pelo Django Admin.
 
+**_OBS2:_**: Vale a pena lembrar que, para que as requisições sejam feitas com sucesso, cada usuário deverá ter o seu token gerado, seja pelo Django Admin ou pelo Shel do manage.py. Usuários anônimos estão limitados apenas a consultas.
+
