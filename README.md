@@ -47,6 +47,8 @@ Para que a API seja colocada em funcionamento, é necessário a instalação do 
 
 Em relação aos testes automatizados, utilizei a biblioteca Pytest para desenvolver as classes e métodos de testes. Não fiz o uso da biblioteca UNITTEST.
 
+Para executar os testes basta rodar o comando pytest -s -v tests.py 
+
 
 ## Versionamento do código:
 
